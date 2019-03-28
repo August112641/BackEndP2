@@ -25,8 +25,8 @@
       <div id="loggedin">
         <div id="user-profile">
         </div>
-        <div id="oauth">
-        </div>
+        <!-- <div id="oauth">
+        </div> -->
         <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
       </div>
     </div>
@@ -50,13 +50,13 @@
         </div>
       </div>
     </script>
-    <script id="oauth-template" type="text/x-handlebars-template">
+    <!-- <script id="oauth-template" type="text/x-handlebars-template">
       <h2>oAuth info</h2>
       <dl class="dl-horizontal">
         <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
         <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}</dd>
       </dl>
-    </script>
+    </script> -->
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -81,9 +81,9 @@
             userProfileTemplate = Handlebars.compile(userProfileSource),
             userProfilePlaceholder = document.getElementById('user-profile');
 
-        var oauthSource = document.getElementById('oauth-template').innerHTML,
-            oauthTemplate = Handlebars.compile(oauthSource),
-            oauthPlaceholder = document.getElementById('oauth');
+        // var oauthSource = document.getElementById('oauth-template').innerHTML,
+        //     oauthTemplate = Handlebars.compile(oauthSource),
+        //     oauthPlaceholder = document.getElementById('oauth');
 
         var params = getHashParams();
 
@@ -91,9 +91,9 @@
             refresh_token = params.refresh_token,
             error = params.error;
 
-        if (error) {
-          alert('There was an error during the authentication');
-        } else {
+        // if (error) {
+        //   alert('There was an error during the authentication');
+        // } else {
           if (access_token) {
             // render oauth info
             oauthPlaceholder.innerHTML = oauthTemplate({
@@ -118,7 +118,7 @@
               $('#login').show();
               $('#loggedin').hide();
           }
-      
+
           document.getElementById('obtain-new-token').addEventListener('click', function() {
             $.ajax({
               url: '/refresh_token',
@@ -134,10 +134,10 @@
             });
           }, false);
         }
-      })();
+      ());
     </script>
     
-<iframe src="https://open.spotify.com/embed/user/leo_blaze/playlist/4QfPkyA14dxmZwZBlBpSOw" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe><h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
+<!-- <iframe src="https://open.spotify.com/embed/user/leo_blaze/playlist/4QfPkyA14dxmZwZBlBpSOw" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe><h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
 <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
 
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
@@ -171,7 +171,7 @@
     // Connect to the player!
     player.connect();
   };
-</script>
+</script> -->
   </body>
 </html>
 
