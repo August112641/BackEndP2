@@ -1,7 +1,0 @@
-
-language: java
-
-script:
-  - mvn clean package
-  - mvn sonar:sonar -Dsonar.projectKey=August112641_Project2 -Dsonar.organization=august112641-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$PROJECT2
-© 2019 GitHub, Inc.

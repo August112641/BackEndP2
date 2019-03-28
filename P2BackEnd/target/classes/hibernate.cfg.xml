@@ -15,11 +15,11 @@
         <property name="hibernate.connection.url">jdbc:oracle:thin:@mydatabase2.c4mdwkywftlv.us-east-1.rds.amazonaws.com:ORCL</property>
         
         <property name="hibernate.connection.username">
-
+            	
         </property>
         
         <property name="hibernate.connection.password">
-
+            
         </property>
         
         <!-- This property determines how many connections
