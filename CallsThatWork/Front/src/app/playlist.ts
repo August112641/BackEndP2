@@ -1,6 +1,7 @@
-interface Playlist{
-    name: string,
+interface Playist{
+    
+        name: string,
         description: string,
         public: boolean
-
+      
 }
