@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({'Authorization': 'Bearer '+'BQCiCdltMaWFPFz5JqAOCj2ncXI6xgAXkaR4ZZkh0_eL9o7a8SWXrhq6ZctNP41r-tR-nHBDsEi1A7E9F1JqcOTZxYctArPYMbNu8lA9HCcmsyQKaDu_vvMlOVb7ckn_yyhiCl5X5d7uj4YxSX1PpVIMjQqB1VoVcZuzmgsdqW46Ykbvyrw4FHZKn0brtjN9a8oMN0JthzdjukCAybfEjfV4wA' })
+  headers: new HttpHeaders({'Authorization': 'Bearer '+'BQBbJN2dVf4dCg9jnLEMi3BaBow2ndB0K7nuQc-LIw_49sbuQVGqFKlnOHg8NETi8ClRUSZe5fwEpWihDeJwN_cFGH6tkUhQPgRZnW8K5MgMkLzHKM7WZm5KSp4b2ujeCnwcfHtooTsVculo6Tan_pmO5Nf8VmW2yGNUCVPAsIUZzxoRRkBCANK73uUSXCQe_CWJN64lKF6Y0sCR3H1JOvufaw' })
 };
 
 @Injectable({
@@ -13,6 +13,7 @@ const httpOptions = {
 export class GetPlayService {
   private creatUrl = 'https://api.spotify.com/v1/users/1244653463/playlists'
   private baseUrl = 'https://api.spotify.com/v1/tracks/3n3Ppam7vgaVa1iaRUc9Lp';
+  private addUrl = 'https://api.spotify.com/v1/users/1244653463/playlists/'
 
   constructor(
     private http: HttpClient
@@ -27,6 +28,10 @@ export class GetPlayService {
         
       
     };
+
+    addTrack(playlist:string, track:string ) : Observable<Track>{
+      return this.http.post<Track>(this.addUrl+playlist+"tracks?uris=spotify%3Atrack%"+track, httpOptions);
+    }
 
    newPlaylist() : Observable<Playlist>{
 

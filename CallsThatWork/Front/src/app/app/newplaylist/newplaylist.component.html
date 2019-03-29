@@ -7,7 +7,8 @@
   {{current}}
 </p> -->
 <!-- <iframe src= 'https://open.spotify.com/embed/user/1244653463/playlist/7sStwRbTGePw8Lo6OZxlY9' width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
-<!-- <p>{{currentPlaylist.name}}</p> -->
+<p id = 'current'>{{currentPlaylist.name}}</p>
 <!-- <input type='text' [(ngModel)]='name' name='name'> -->
 <!-- <p>'{{curply}}'</p> -->
-<iframe [src]=  cleanUrl() width ="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+<iframe [src]=  cleanUrl(currentPlaylist.name) width ="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+<!-- <input value = {{currentPlaylist.name}} id = "fi" type = 'text'> -->

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TrackComponentComponent } from './track-component/track-component.component';
 import { NewplaylistComponent } from './newplaylist/newplaylist.component';
+import { AddTrackComponent } from './add-track/add-track.component';
 
 
 
@@ -13,7 +14,8 @@ import { NewplaylistComponent } from './newplaylist/newplaylist.component';
   declarations: [
     AppComponent,
     TrackComponentComponent,
-    NewplaylistComponent
+    NewplaylistComponent,
+    AddTrackComponent
     
   ],
   imports: [
