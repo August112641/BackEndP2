@@ -25,7 +25,7 @@ public class UserController {
 	userDao ud;
 
 	@GetMapping("/users")
-	public List<User> getCats(@RequestParam(value = "id", required =false)Integer id){
+	public List<User> getUsers(@RequestParam(value = "id", required =false)Integer id){
 		if(id!=null) {
 			User u = ud.getUserById(id);
 			if(u == null) {
