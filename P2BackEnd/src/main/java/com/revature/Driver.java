@@ -1,20 +1,21 @@
 package com.revature;
 
-import java.util.List;
+import org.hibernate.Session;
 
 import com.revature.beans.User;
-import com.revature.dao.userDaoImpl;
 import com.revature.dao.userDao;
+import com.revature.dao.userDaoImpl;
+import com.revature.util.HibernateSessionUtil;
 
 public class Driver {
 	public static void main(String[] args) {
-//		Session session = HibernateSessionUtil.getSession();
-//		session.close();
+		Session session = HibernateSessionUtil.getSession();
+		session.close();
 	
 		userDao ud = new userDaoImpl();
 
-//		User u1 = new User("August112641@gmail.com", "password", 1);
-//		ud.createUser(u1);
+		User u1 = new User("August112641@gmail.com", "password", 1);
+		ud.createUser(u1);
 //
 //		List<User> users= ud.getAllUsers();
 //		for(User u: users) {
