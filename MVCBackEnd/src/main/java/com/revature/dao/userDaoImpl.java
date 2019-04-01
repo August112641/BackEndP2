@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
 import com.revature.models.User;
 import com.revature.util.HibernateSessionUtil;
 
+@Component
 public class userDaoImpl implements userDao{
 
 	@Override
