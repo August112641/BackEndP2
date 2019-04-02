@@ -1,15 +1,24 @@
 package com.revature.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "USERS")
+@Component
 public class User {
 	@Id
 	@Column (name="USER_ID")
 	@SequenceGenerator(sequenceName="bee_seq", name="b_seq")
 	@GeneratedValue(generator="b_seq", strategy=GenerationType.SEQUENCE)
 	private Integer id;
+	
 	
 	@Column(name="EMAIL")
 	private String email;
