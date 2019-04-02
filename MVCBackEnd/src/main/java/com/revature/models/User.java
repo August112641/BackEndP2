@@ -18,18 +18,18 @@ public class User {
 	@SequenceGenerator(sequenceName="bee_seq", name="b_seq")
 	@GeneratedValue(generator="b_seq", strategy=GenerationType.SEQUENCE)
 	private Integer id;
-	
-	
+
+
 	@Column(name="EMAIL")
 	private String email;
-	
+
 	@Column(name="PASS")
 
 	private String password;
-	
+
 	@Column(name="PLAYLIST")
 
-	private Integer playlistId;
+	private String playlistId;
 
 	public Integer getId() {
 		return id;
@@ -55,11 +55,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getPlaylistId() {
+	public String getPlaylistId() {
 		return playlistId;
 	}
 
-	public void setPlaylistId(Integer playlistId) {
+	public void setPlaylistId(String playlistId) {
 		this.playlistId = playlistId;
 	}
 
@@ -106,21 +106,22 @@ public class User {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", playlistId=" + playlistId + "]";
-	}
-
-	public User(Integer id, String email, String password, Integer playlistId) {
+	
+	public User(String email, String password, String playlistId) {
 		super();
-		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.playlistId = playlistId;
 	}
 
-	public User(String email, String password, Integer playlistId) {
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", playlistId=" + playlistId + "]";
+	}
+
+	public User(Integer id, String email, String password, String playlistId) {
 		super();
+		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.playlistId = playlistId;
@@ -130,8 +131,8 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
+
+
+
+
 }
