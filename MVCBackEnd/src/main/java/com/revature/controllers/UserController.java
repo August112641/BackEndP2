@@ -27,7 +27,6 @@ import exceptions.UserNotFoundExeption;
 @RequestMapping("/users")
 public class UserController {
 
-	@Autowired
 	userDao ud = new userDaoImpl();
 
 	@GetMapping

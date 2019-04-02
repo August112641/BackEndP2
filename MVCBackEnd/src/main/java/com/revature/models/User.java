@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "USERS")
-@Component
 public class User {
 	@Id
 	@Column (name="USER_ID")

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.revature.models.User;
 import com.revature.util.HibernateSessionUtil;
 
-@Component
 public class userDaoImpl implements userDao{
 
 	@Override
