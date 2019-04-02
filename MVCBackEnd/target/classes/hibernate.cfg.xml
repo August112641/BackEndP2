@@ -8,10 +8,11 @@
 		<property name="hibernate.connection.url">jdbc:oracle:thin:@mydatabase2.c4mdwkywftlv.us-east-1.rds.amazonaws.com:1521:ORCL</property>
 		<property name="hibernate.connection.username">August112641</property>
 		<property name="hibernate.connection.password">Concordia16!</property>
-		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		<property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
 
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.connection.pool_size">2</property>
 
 		<mapping class="com.revature.models.User" />
 	</session-factory>
