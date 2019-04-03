@@ -1,8 +1,10 @@
+
 package com.revature.controllers;
 
 
 import java.util.List;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,50 +29,84 @@ import exceptions.UserNotFoundExeption;
 @RequestMapping("/users")
 public class UserController {
 
+	private Logger log = Logger.getLogger(UserController.class);
+
 	@Autowired
 	userDao ud = new userDaoImpl();
 
 	@GetMapping
 	public List<User> getUsers(){
+		log.info("Getting All Users");
 		return ud.getAllUsers();
 	}
 
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
 	public User getUserById(@PathVariable("id")Integer id) {
+		log.info("Searching For User With Id "+id);
 		User u = ud.getUserById(id);
+		log.info("User With Id "+id+" Was Found");
+		log.info("User "+id+" info: "+u);
 		if(u==null) {
+			log.info("User With Id "+id+" Was NOT Found");
 			throw new UserNotFoundExeption();
 		}
 		return u;
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-		public User addUser(@RequestBody User user){
+	public User addUser(@RequestBody User user){
+		log.warn("Creating New User: Email: "+user.getEmail()+" Password: "+user.getPassword()+" PlaylistId: "+user.getPlaylistId());
+		log.info("User Created Successfully");
 		return ud.createUser(new User(user.getEmail(), user.getPassword(), user.getPlaylistId()));
 	}
 
 	@PutMapping(value="/{id}")
 	public void updateUser(@PathVariable("id")Integer id, @RequestBody User user){
+		log.info("Requesting User With Id: "+id);
 
 		User u = ud.getUserById(id);
-		System.out.println(u);
-		
+
+		log.warn("MODIFYING USER: "+u);
+
 		u.setEmail(user.getEmail());
-		
+
 		u.setPassword(user.getPassword());
-		
+
 		u.setPlaylistId(user.getPlaylistId());
-		
+
 		ud.updateUser(u);
-		System.out.println(u);
-		
+		log.info("User Updated Into: "+u);
 	}
-	
+
 	@DeleteMapping(value="/{id}")
 	public void deleteUser(@PathVariable("id")Integer id){
 		User u = ud.getUserById(id);
+		log.warn("USER WITH ID NUM "+id+" MARKED FOR DELETION!!");
 		ud.deleteUser(u);
-		
+		log.info("USER "+id+" DELETED...");
 	}
 
+
+	@PostMapping("/login")
+	public List<User> loginUsers(@RequestBody User user){
+		List<User> users = ud.getAllUsers();
+		if(null==user.getEmail()||""==user.getEmail()){
+			users.clear();
+			return users;
+		}
+		
+		for(User u: users) {
+			if(!u.getEmail().equals(user.getEmail()) || !u.getPassword().equals(user.getPassword())){
+				users.clear();
+				return users;
+			}
+			else if(u.getEmail().equals(user.getEmail())&& u.getPassword().equals(user.getPassword())) {
+				users.clear();
+				users.add(u);
+				return users;
+			}
+		}
+		users.clear();
+		return users;
+	}
 }
