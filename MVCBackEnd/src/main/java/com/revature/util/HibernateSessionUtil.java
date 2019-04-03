@@ -11,6 +11,11 @@ private static SessionFactory sF;
 	
 	private static SessionFactory getSessionFactory(String filename) {
 		if(sF == null || sF.isClosed()) {
+			try {
+				Class.forName("oracle.jdbc.OracleDriver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 			Configuration c = new Configuration().configure(filename);
 			ServiceRegistry sr = new StandardServiceRegistryBuilder().applySettings(c.getProperties()).build();
 			sF = c.buildSessionFactory(sr);
