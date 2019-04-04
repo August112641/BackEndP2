@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.dao.userDao;
 import com.revature.dao.userDaoImpl;
+import com.revature.models.Playlists;
 import com.revature.models.User;
 
 import exceptions.UserNotFoundExeption;
@@ -30,7 +31,7 @@ import exceptions.UserNotFoundExeption;
 @RequestMapping("/users")
 public class UserController {
 
-	
+
 	private Logger log = Logger.getLogger(UserController.class);
 
 	@Autowired
@@ -57,33 +58,41 @@ public class UserController {
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public User addUser(@RequestBody User user){
-		log.warn("Creating New User: Email: "+user.getEmail()+" Password: "+user.getPassword()+" PlaylistId: "+user.getPlaylistId());
+		log.info("Creating New User: Email: "+user.getEmail()+" Password: "+user.getPassword()+" PlaylistId: "+user.getPlaylist());
 		log.info("User Created Successfully");
-		return ud.createUser(new User(user.getEmail(), user.getPassword(), user.getPlaylistId()));
+		return ud.createUser(new User(user.getEmail(), user.getPassword(), user.getPlaylist()));
 	}
 
 	@PutMapping(value="/{id}")
 	public void updateUser(@PathVariable("id")Integer id, @RequestBody User user){
 		log.info("Requesting User With Id: "+id);
-
 		User u = ud.getUserById(id);
-
-		log.warn("MODIFYING USER: "+u);
+		List<Playlists> playlist = user.getPlaylist();
+		List<Playlists> play = u.getPlaylist();
+		System.out.println(play);
+		for(Playlists p: playlist) {
+			play.add(p);
+			
+		}
+		System.out.println(play);
+		u.setPlaylist(play);
+		
+		log.info("MODIFYING USER: "+u);
 
 		u.setEmail(user.getEmail());
 
 		u.setPassword(user.getPassword());
 
-		u.setPlaylistId(user.getPlaylistId());
+//		u.setPlaylist(user.getPlaylist());
 
 		ud.updateUser(u);
-		log.info("User Updated Into: "+u);
+		log.info("User "+id+"Modified");
 	}
 
 	@DeleteMapping(value="/{id}")
 	public void deleteUser(@PathVariable("id")Integer id){
 		User u = ud.getUserById(id);
-		log.warn("USER WITH ID NUM "+id+" MARKED FOR DELETION!!");
+		log.info("USER WITH ID NUM "+id+" MARKED FOR DELETION!!");
 		ud.deleteUser(u);
 		log.info("USER "+id+" DELETED...");
 	}
@@ -95,17 +104,21 @@ public class UserController {
 		for(User u: users) {
 			if(null==user.getEmail()|| "".equals(user.getEmail())){
 				if(null==user.getPassword()|| "".equals(user.getPassword())){
+					log.info("User NonExistent");
 					throw new UserNotFoundExeption();
 				}
 			}
 			if(!u.getEmail().equals(user.getEmail()) || !u.getPassword().equals(user.getPassword())){
+				log.info("USER CREDENTIALS DO NOT MATCH");
 				continue;
 			}
 			users.clear();
 			users.add(u);
+			log.info("Searched Database");
 			return users;
 
 		}
+		log.info("NO SUCH USER EXISTS");
 		return new ArrayList<>();
 	}
 }

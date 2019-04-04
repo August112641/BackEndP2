@@ -1,10 +1,17 @@
 package com.revature.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,14 +30,15 @@ public class User {
 	private String email;
 
 	@Column(name="PASS")
-
 	private String password;
 
-	@Column(name="PLAYLIST")
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+			name="PLAYLISTS",
+			joinColumns= {@JoinColumn(name="USER_ID")},
+			inverseJoinColumns = {@JoinColumn(name="PLAYLIST_ID")})
+	private List<Playlists> playlist = new ArrayList<>();
 
-	private String playlistId;
-
-	
 	public Integer getId() {
 		return id;
 	}
@@ -55,12 +63,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getPlaylistId() {
-		return playlistId;
+	public List<Playlists> getPlaylist() {
+		return playlist;
 	}
 
-	public void setPlaylistId(String playlistId) {
-		this.playlistId = playlistId;
+	public void setPlaylist(List<Playlists> playlist) {
+		this.playlist = playlist;
 	}
 
 	@Override
@@ -70,7 +78,7 @@ public class User {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((playlistId == null) ? 0 : playlistId.hashCode());
+		result = prime * result + ((playlist == null) ? 0 : playlist.hashCode());
 		return result;
 	}
 
@@ -98,33 +106,32 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (playlistId == null) {
-			if (other.playlistId != null)
+		if (playlist == null) {
+			if (other.playlist != null)
 				return false;
-		} else if (!playlistId.equals(other.playlistId))
+		} else if (!playlist.equals(other.playlist))
 			return false;
 		return true;
 	}
 
-	
-	public User(String email, String password, String playlistId) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.playlistId = playlistId;
-	}
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", playlistId=" + playlistId + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", playlist=" + playlist + "]";
 	}
 
-	public User(Integer id, String email, String password, String playlistId) {
+	public User(Integer id, String email, String password, List<Playlists> playlist) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
-		this.playlistId = playlistId;
+		this.playlist = playlist;
+	}
+
+	public User(String email, String password, List<Playlists> playlist) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.playlist = playlist;
 	}
 
 	public User() {
@@ -132,7 +139,10 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-
+	public User(Integer id, List<Playlists> playlist) {
+		super();
+		this.id = id;
+		this.playlist = playlist;
+	}
+	
 }

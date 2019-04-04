@@ -11,5 +11,6 @@ public interface userDao {
 	public User createUser(User u);
 	public void updateUser(User u);
 	public void deleteUser(User u);
+	public User getUserByEmail(String email);
 
 }

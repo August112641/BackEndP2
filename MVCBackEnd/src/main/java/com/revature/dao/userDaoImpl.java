@@ -41,7 +41,7 @@ public class userDaoImpl implements userDao{
 			}
 		}catch(HibernateException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			session.close();	
 		}
 		return user;
@@ -71,17 +71,14 @@ public class userDaoImpl implements userDao{
 		try {
 			tx = session.beginTransaction();
 			user = (User)session.get(User.class, u.getId());
-//			if(u.getId() != null) {
-//				u.setId(u.getId());
-//			}
 			if(u.getEmail() != null) {
 				user.setEmail(u.getEmail());
 			}
 			if(u.getPassword() != null) {
 				user.setPassword(u.getPassword());
 			}
-			if(u.getPlaylistId() != null) {
-				user.setPlaylistId(u.getPlaylistId());
+			if(u.getPlaylist() != null) {
+				user.setPlaylist(u.getPlaylist());
 			}
 			session.save(user);
 			tx.commit();			
@@ -98,7 +95,7 @@ public class userDaoImpl implements userDao{
 	public void deleteUser(User u) {
 		Session session = HibernateSessionUtil.getSession();
 		Transaction tx = null;
-		
+
 		try{
 			tx = session.beginTransaction();
 			session.delete(session.get(User.class, u.getId()));
@@ -109,9 +106,29 @@ public class userDaoImpl implements userDao{
 		}finally{
 			session.close();
 		}
-	
-}
 
-	
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		Session session = HibernateSessionUtil.getSession();
+		List<User> users = null;
+		User user =null;
+		try {
+			users = session.createQuery("from User").list();
+			for(User u: users) {
+				if(u.getEmail()==email) {
+					user=u;
+				}
+			}
+		}catch(HibernateException e) {
+			e.printStackTrace();
+		}finally {
+			session.close();	
+		}
+		return user;
+	}
+
+
 
 }

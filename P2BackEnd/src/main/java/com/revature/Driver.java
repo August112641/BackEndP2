@@ -12,11 +12,11 @@ public class Driver {
 		Session session = HibernateSessionUtil.getSession();
 		session.close();
 	
-		userDao ud = new userDaoImpl();
-
-		User u1 = new User("August112641@gmail.com", "password", 1);
-		ud.createUser(u1);
+//		userDao ud = new userDaoImpl();
 //
+//		User u1 = new User("August112641@gmail.com", "password", 1);
+//		ud.createUser(u1);
+////
 //		List<User> users= ud.getAllUsers();
 //		for(User u: users) {
 //			System.out.println(u);

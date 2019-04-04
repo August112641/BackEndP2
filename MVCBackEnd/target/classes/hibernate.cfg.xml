@@ -10,10 +10,12 @@
 		<property name="hibernate.connection.password">Concordia16!</property>
 		<property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
 
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.connection.pool_size">2</property>
 
 		<mapping class="com.revature.models.User" />
+		<mapping class="com.revature.models.Playlists"/>
+
 	</session-factory>
 </hibernate-configuration>
