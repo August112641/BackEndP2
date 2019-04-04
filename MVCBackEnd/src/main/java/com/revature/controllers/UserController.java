@@ -5,6 +5,7 @@ package com.revature.controllers;
 import java.util.List;
 
 import org.jboss.logging.Logger;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +30,7 @@ import exceptions.UserNotFoundExeption;
 @RequestMapping("/users")
 public class UserController {
 
+	
 	private Logger log = Logger.getLogger(UserController.class);
 
 	@Autowired
@@ -90,7 +92,7 @@ public class UserController {
 	@PostMapping("/login")
 	public List<User> loginUsers(@RequestBody User user){
 		List<User> users = ud.getAllUsers();
-		if(null==user.getEmail()||""==user.getEmail()){
+		if(null==user.getEmail()||null==user.getPassword()){
 			users.clear();
 			return users;
 		}

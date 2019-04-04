@@ -19,8 +19,7 @@ public class User {
 	@GeneratedValue(generator="b_seq", strategy=GenerationType.SEQUENCE)
 	private Integer id;
 
-
-	@Column(name="EMAIL")
+	@Column(name="EMAIL", unique=true)
 	private String email;
 
 	@Column(name="PASS")
@@ -31,6 +30,7 @@ public class User {
 
 	private String playlistId;
 
+	
 	public Integer getId() {
 		return id;
 	}
