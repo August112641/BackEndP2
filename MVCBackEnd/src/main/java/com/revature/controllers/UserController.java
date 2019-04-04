@@ -2,10 +2,10 @@
 package com.revature.controllers;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.logging.Logger;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -92,21 +92,20 @@ public class UserController {
 	@PostMapping("/login")
 	public List<User> loginUsers(@RequestBody User user){
 		List<User> users = ud.getAllUsers();
-		if(null==user.getEmail()||"".equals(user.getEmail())){
-			users.clear();
-			return users;
-		}
-
 		for(User u: users) {
+			if(null==user.getEmail()|| "".equals(user.getEmail())){
+				if(null==user.getPassword()|| "".equals(user.getPassword())){
+					throw new UserNotFoundExeption();
+				}
+			}
 			if(!u.getEmail().equals(user.getEmail()) || !u.getPassword().equals(user.getPassword())){
 				continue;
 			}
 			users.clear();
 			users.add(u);
-			System.out.println(u);
 			return users;
 
 		}
-		return users;
+		return new ArrayList<>();
 	}
 }
