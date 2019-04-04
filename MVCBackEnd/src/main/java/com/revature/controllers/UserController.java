@@ -92,23 +92,21 @@ public class UserController {
 	@PostMapping("/login")
 	public List<User> loginUsers(@RequestBody User user){
 		List<User> users = ud.getAllUsers();
-		if(null==user.getEmail()||null==user.getPassword()){
+		if(null==user.getEmail()||"".equals(user.getEmail())){
 			users.clear();
 			return users;
 		}
-		
+
 		for(User u: users) {
 			if(!u.getEmail().equals(user.getEmail()) || !u.getPassword().equals(user.getPassword())){
-				users.clear();
-				return users;
+				continue;
 			}
-			else if(u.getEmail().equals(user.getEmail())&& u.getPassword().equals(user.getPassword())) {
-				users.clear();
-				users.add(u);
-				return users;
-			}
+			users.clear();
+			users.add(u);
+			System.out.println(u);
+			return users;
+
 		}
-		users.clear();
 		return users;
 	}
 }
